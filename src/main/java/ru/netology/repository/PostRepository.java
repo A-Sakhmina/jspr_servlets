@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 // Stub
 public class PostRepository {
 
     private final ConcurrentHashMap<Long, Post> postsRepository = new ConcurrentHashMap<>();
-    static Long postId = Long.valueOf(0);
+    static AtomicLong postId = new AtomicLong(0);
 
     public List<Post> all() {
         if (!postsRepository.isEmpty()) return new ArrayList<>(postsRepository.values());
@@ -27,8 +28,8 @@ public class PostRepository {
 
         if (post.getId() == 0) {
             //create new post
-            post.setId(postId);
-            postId++;
+            post.setId(postId.get());
+            postId.getAndIncrement();
         } else if (postsRepository.containsKey(post.getId())) {
             //update id number of the post
             postsRepository.put(post.getId(), post);
