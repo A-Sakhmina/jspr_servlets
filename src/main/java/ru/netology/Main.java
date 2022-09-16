@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 public class Main {
-
     public static void main(String[] args) throws LifecycleException, IOException {
         final var tomcat = new Tomcat();
         final var baseDir = Files.createTempDirectory("tomcat");
@@ -16,7 +15,7 @@ public class Main {
         tomcat.setBaseDir(baseDir.toAbsolutePath().toString());
 
         final var connector = new Connector();
-        connector.setPort(8080);
+        connector.setPort(9999);
         tomcat.setConnector(connector);
 
         tomcat.getHost().setAppBase(".");
